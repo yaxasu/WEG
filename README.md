@@ -1,7 +1,5 @@
 # World's Easiest Game
 
-Welcome to the World's Easiest Game, an AI-powered game demonstrating the use of genetic algorithms. This game is designed to show how AI can evolve over time by changing various parameters.
-
 ## Table of Contents
 
 - [Introduction](#introduction)
@@ -9,10 +7,15 @@ Welcome to the World's Easiest Game, an AI-powered game demonstrating the use of
 - [Installation](#installation)
 - [Usage](#usage)
 - [Configuration](#configuration)
+- [Controls](#controls)
 
 ## Introduction
 
-The World's Easiest Game leverages genetic algorithms to evolve a player through various challenges. Experiment with different settings to see how the AI adapts and improves over generations.
+Welcome to the World's "Easiest" Game, an AI-powered game demonstrating the use of genetic algorithms. This game illustrates how AI can evolve and adapt over time by adjusting various parameters.
+
+The AI "learns" to traverse the level using the concepts of natural selection and survival of the fittest. Initially, a single generation of randomly selected AIs attempts the level. The fittest individuals are identified based on their ability to reach the furthest with the fewest moves. Through incremental learning, the number of available moves increases every five generations, allowing the AI to refine its strategies. This process enables the AI to "remember" previous paths and pass on efficient genes to future generations.
+
+> Note: It takes about ~60 generations for the AI to clear the level with default settings.
 
 ## Features
 
@@ -47,9 +50,9 @@ Experiment with these settings to see how they impact the AI's performance.
 
 ## Configuration
 
-The main settings can be adjusted directly in the game interface under the "Change Values" section. 
+The main settings can be adjusted directly in the game interface under the "Change Values" section.
 
-### Controls
+## Controls
 
 - **Population Size**: Use the `+` and `-` buttons to increase or decrease the population size.
 - **Mutation Rate**: Use the `1/2` and `x2` buttons to halve or double the mutation rate.
