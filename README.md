@@ -50,7 +50,7 @@ Experiment with these settings to see how they impact the AI's performance.
 
 ## Configuration
 
-The main settings can be adjusted directly in the game interface under the "Change Values" section.
+The main settings can be adjusted directly in the game interface under the Settings section.
 
 ## Controls
 
