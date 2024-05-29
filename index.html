@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>World's Easiest Game</title>
+  <script language="javascript" type="text/javascript" src="libraries/p5.js"></script>
+  <script language="javascript" src="libraries/p5.dom.js"></script>
+  <script language="javascript" type="text/javascript" src="sketch.js"></script>
+  <script language="javascript" type="text/javascript" src="Tile.js"></script>
+  <script language="javascript" type="text/javascript" src="setting_level.js"></script>
+  <script language="javascript" type="text/javascript" src="Player.js"></script>
+  <script language="javascript" type="text/javascript" src="Solid.js"></script>
+  <script language="javascript" type="text/javascript" src="Dot.js"></script>
+  <script language="javascript" type="text/javascript" src="Population.js"></script>
+  <script language="javascript" type="text/javascript" src="Brain.js"></script>
+  <script language="javascript" type="text/javascript" src="Node.js"></script>
+  
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>World's Easiest Game</h1>
+  </header>
+  <main>
+    <div id="controls">
+      <h2>Change Values</h2>
+      <div class="control-group">
+        <span id="popPara">Population Size: 500</span>
+        <button id="popMinus">-</button>
+        <button id="popPlus">+</button>
+      </div>
+      <div class="control-group">
+        <span id="mrPara">Mutation Rate: 0.01</span>
+        <button id="mrMinus">1/2</button>
+        <button id="mrPlus">x2</button>
+      </div>
+      <div class="control-group">
+        <span id="speedPara">Evolution Player Speed: 1</span>
+        <button id="speedMinus">-</button>
+        <button id="speedPlus">+</button>
+      </div>
+      <h3>Increase number of player moves by 5 every 5 generations</h3>
+      <div class="control-group">
+        <span id="movesPara">Increase moves by: 5</span>
+        <button id="movesMinus">-</button>
+        <button id="movesPlus">+</button>
+      </div>
+      <div class="control-group">
+        <span id="everyPara">Increase every 5 generations</span>
+        <button id="everyMinus">-</button>
+        <button id="everyPlus">+</button>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
