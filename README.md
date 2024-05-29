@@ -15,7 +15,7 @@ Welcome to the World's "Easiest" Game, an AI-powered game demonstrating the use 
 
 The AI "learns" to traverse the level using the concepts of natural selection and survival of the fittest. Initially, a single generation of randomly selected AIs attempts the level. The fittest individuals are identified based on their ability to reach the furthest with the fewest moves. Through incremental learning, the number of available moves increases every five generations, allowing the AI to refine its strategies. This process enables the AI to "remember" previous paths and pass on efficient genes to future generations.
 
-> Note: It takes about ~60 generations for the AI to clear the level with default settings.
+> Note: It takes about ~50 generations for the AI to clear the level with default settings.
 
 ## Features
 
