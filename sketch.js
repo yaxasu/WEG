@@ -208,7 +208,7 @@ function displayText() {
       text(`Number of moves: ${testPopulation.players[0].brain.directions.length}`, 700, 90);
     }
   } else {
-    text("Enjoy!", 550, 90);
+    text("Use arrow keys to control - Enjoy!", 380, 90);
   }
 }
 
