@@ -81,7 +81,7 @@ function setup() {
 }
 
 function draw() {
-  background(180, 181, 254);
+  background(22, 59, 86);
   drawTiles();
   displayText();
 
@@ -179,7 +179,7 @@ function saveDots() {
 }
 
 function displayText() {
-  fill(37, 37, 37);
+  fill(255, 255, 255);
   noStroke();
 
   textSize(20);

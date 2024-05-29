@@ -17,7 +17,7 @@ class Tile{
       fill(230,230,255);
     }
     if (this.wall) {
-      fill(180, 181, 254);
+      fill(22, 59, 86);
     }
     if (this.goal || this.safe) {
       fill(181, 254, 180);
