@@ -1,65 +1,277 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>World's Easiest Game</title>
+    <link rel="icon" type="image/png" href="assets/weg.png" />
 
-<head>
-  <meta charset="UTF-8">
-  <title>World's Easiest Game</title>
-  <link rel="icon" type="image/png" href="assets/weg.png">
-  <script language="javascript" type="text/javascript" src="libraries/p5.js"></script>
-  <script language="javascript" src="libraries/p5.dom.js"></script>
-  <script language="javascript" type="text/javascript" src="sketch.js"></script>
-  <script language="javascript" type="text/javascript" src="Tile.js"></script>
-  <script language="javascript" type="text/javascript" src="setting_level.js"></script>
-  <script language="javascript" type="text/javascript" src="Player.js"></script>
-  <script language="javascript" type="text/javascript" src="Solid.js"></script>
-  <script language="javascript" type="text/javascript" src="Dot.js"></script>
-  <script language="javascript" type="text/javascript" src="Population.js"></script>
-  <script language="javascript" type="text/javascript" src="Brain.js"></script>
-  <script language="javascript" type="text/javascript" src="Node.js"></script>
+    <!-- p5.js & game scripts  -->
+    <script src="libraries/p5.js"></script>
+    <script src="libraries/p5.dom.js"></script>
+    <script src="sketch.js"></script>
+    <script src="Tile.js"></script>
+    <script src="setting_level.js"></script>
+    <script src="Player.js"></script>
+    <script src="Solid.js"></script>
+    <script src="Dot.js"></script>
+    <script src="Population.js"></script>
+    <script src="Brain.js"></script>
+    <script src="Node.js"></script>
 
-  <link rel="stylesheet" type="text/css" href="style.css">
-</head>
+    <style>
+      :root {
+        --bg: #121212;
+        --panel-bg: #1e1e1e;
+        --header-bg: #0e1621;
+        --accent: #3b82f6;
+        --accent-hover: #60a5fa;
+        --text: #e5e7eb;
+        --text-muted: #9ca3af;
+        --radius: 0.75rem;
+      }
 
-<body>
-  <header>
-    <img src="assets/weg.png" alt="World's Easiest Game" class="logo">
-    <h1>World's Easiest Game</h1>
-  </header>
-  <main>
-    <div id="controls">
-      <h2>Settings</h2>
-      <div class="control-group">
-        <span id="popPara">Population Size: 500</span>
-        <button id="popMinus">-</button>
-        <button id="popPlus">+</button>
-      </div>
-      <div class="control-group">
-        <span id="mrPara">Mutation Rate: 0.01</span>
-        <button id="mrMinus">1/2</button>
-        <button id="mrPlus">x2</button>
-      </div>
-      <div class="control-group">
-        <span id="speedPara">Evolution Player Speed: 1</span>
-        <button id="speedMinus">-</button>
-        <button id="speedPlus">+</button>
-      </div>
-      <h3>Increase number of player moves by 5 every 5 generations</h3>
-      <div class="control-group">
-        <span id="movesPara">Increase moves by: 5</span>
-        <button id="movesMinus">-</button>
-        <button id="movesPlus">+</button>
-      </div>
-      <div class="control-group">
-        <span id="everyPara">Increase every 5 generations</span>
-        <button id="everyMinus">-</button>
-        <button id="everyPlus">+</button>
-      </div>
-    </div>
-  </main>
-  <footer>
-    <p>This is an AI-powered game demonstrating the use of genetic algorithms. Enjoy and experiment with the settings to
-      see how the AI evolves!</p>
-  </footer>
-</body>
+      * {
+        box-sizing: border-box;
+        font-family: "Inter", Arial, sans-serif;
+      }
 
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background: var(--bg);
+        color: var(--text);
+      }
+
+      /* ───────────  header  ─────────── */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem 2rem;
+        background: var(--header-bg);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+      }
+
+      .logo {
+        width: 48px;
+        height: auto;
+      }
+
+      header h1 {
+        margin: 0;
+        font-size: 1.75rem;
+        font-weight: 600;
+      }
+
+      /* ───────────  layout  ─────────── */
+      main {
+        flex: 1;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        padding: 2rem 1rem 4rem;
+        justify-content: center;
+        align-items: flex-start;
+      }
+
+      #game-wrapper {
+        flex: 1 1 640px;
+        aspect-ratio: 16 / 9;
+        max-width: 1280px;
+        position: relative;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        border-radius: var(--radius);
+        width: 100%;
+      }
+
+      /* Ensure any stray p5 canvas plays nicely */
+      body > canvas {
+        position: static !important; /* override p5 absolute positioning */
+        max-width: 100%;
+        height: auto;
+        margin: 0 auto;
+        display: block;
+      }
+
+      canvas {
+        display: block;
+        outline: none;
+      }
+
+      /* ✅ Pin the canvas edge‑to‑edge inside the wrapper, at the proper ratio */
+      #game-wrapper canvas {
+        position: absolute;
+        inset: 0;
+        width: 100% !important;
+        height: 100% !important;
+      }
+
+      #controls {
+        background: var(--panel-bg);
+        width: min(320px, 90vw);
+        padding: 2rem;
+        border-radius: var(--radius);
+      }
+
+      #controls h2 {
+        margin: 0 0 1.5rem;
+        font-size: 1.25rem;
+      }
+
+      #controls h3 {
+        margin: 1.5rem 0 0.5rem;
+        font-size: 1rem;
+        font-weight: 500;
+        color: var(--text-muted);
+      }
+
+      .control-group {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .control-group span {
+        flex: 1;
+        font-size: 0.95rem;
+      }
+
+      .control-group button {
+        flex: 0 0 36px;
+        height: 36px;
+        display: grid;
+        place-items: center;
+        font-size: 0.9rem;
+        border: none;
+        border-radius: 0.375rem;
+        background: var(--accent);
+        color: #fff;
+        cursor: pointer;
+        transition: background 0.2s, transform 0.15s;
+      }
+
+      .control-group button:hover {
+        background: var(--accent-hover);
+      }
+
+      .control-group button:active {
+        transform: scale(0.92);
+      }
+
+      /* ───────────  footer  ─────────── */
+      footer {
+        background: var(--header-bg);
+        color: var(--text-muted);
+        padding: 1rem 0;
+        text-align: center;
+        font-size: 0.875rem;
+      }
+
+      /* ───────────  responsive tweaks  ─────────── */
+      @media (max-width: 768px) {
+        header h1 {
+          font-size: 1.5rem;
+        }
+
+        #controls {
+          padding: 1.25rem;
+        }
+
+        .control-group button {
+          flex: 0 0 32px;
+          height: 32px;
+          font-size: 0.8rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <img src="assets/weg.png" alt="World's Easiest Game" class="logo" />
+      <h1>World's Easiest Game</h1>
+    </header>
+
+    <main>
+      <!-- p5 canvas will be moved here dynamically -->
+      <div id="game-wrapper"></div>
+
+      <section id="controls">
+        <h2>Settings</h2>
+
+        <div class="control-group">
+          <span id="popPara">Population Size: 500</span>
+          <button id="popMinus">−</button>
+          <button id="popPlus">+</button>
+        </div>
+
+        <div class="control-group">
+          <span id="mrPara">Mutation Rate: 0.01</span>
+          <button id="mrMinus">½</button>
+          <button id="mrPlus">×2</button>
+        </div>
+
+        <div class="control-group">
+          <span id="speedPara">Evolution Player Speed: 1</span>
+          <button id="speedMinus">−</button>
+          <button id="speedPlus">+</button>
+        </div>
+
+        <h3 id="movesHeader">Increase number of player moves by 5 every 5 generations</h3>
+
+        <div class="control-group">
+          <span id="movesPara">Increase moves by: 5</span>
+          <button id="movesMinus">−</button>
+          <button id="movesPlus">+</button>
+        </div>
+
+        <div class="control-group">
+          <span id="everyPara">Increase every 5 generations</span>
+          <button id="everyMinus">−</button>
+          <button id="everyPlus">+</button>
+        </div>
+      </section>
+    </main>
+
+    <!-- 🔧 Script to re‑home the p5 canvas into #game-wrapper once it exists -->
+    <script>
+      (() => {
+        const wrapper = document.getElementById('game-wrapper');
+
+        function moveCanvas() {
+          if (!wrapper) return;
+          const cnv = document.querySelector('body > canvas');
+          if (cnv && !wrapper.contains(cnv)) {
+            wrapper.appendChild(cnv);
+            // clean up p5's inline absolute positioning; wrapper CSS now handles size
+            cnv.style.position = 'absolute';
+            cnv.style.inset = '0';
+            cnv.style.width = '100%';
+            cnv.style.height = '100%';
+          }
+        }
+
+        // p5 may create the canvas after DOMContentLoaded, so poll briefly
+        const pollID = setInterval(() => {
+          moveCanvas();
+          if (wrapper.querySelector('canvas')) clearInterval(pollID);
+        }, 100);
+
+        // also run after full window load just in case
+        window.addEventListener('load', moveCanvas);
+      })();
+    </script>
+  </body>
 </html>

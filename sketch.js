@@ -1,3 +1,4 @@
+
 // Configuration variables
 const tileSize = 50;
 const xoff = 80;
