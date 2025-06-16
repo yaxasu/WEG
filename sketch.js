@@ -184,7 +184,7 @@ function displayText() {
   noStroke();
 
   textSize(20);
-  text(" \tPress P to play the game yourself", 450, 220);
+  text(" \tPress P to play the game yourself", 450, 130);
 
   textSize(36);
   if (winCounter > 0) {
